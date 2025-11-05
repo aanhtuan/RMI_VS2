@@ -72,7 +72,7 @@ public class ChatClient extends UnicastRemoteObject implements ChatClientCallbac
     }
 
     private void showConnectDialog() {
-        JTextField hostField = new JTextField("localhost");
+        JTextField hostField = new JTextField("192.168.1.175");
         JTextField portField = new JTextField("1099");
         JTextField nameField = new JTextField(System.getProperty("user.name", "user"));
         Object[] message = {
