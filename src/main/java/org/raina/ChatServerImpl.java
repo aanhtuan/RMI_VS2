@@ -66,27 +66,15 @@ public class ChatServerImpl extends UnicastRemoteObject implements ChatServer {
 
 
     public static void main(String[] args) throws Exception {
-        // set hostname programmatically (optional)
         System.setProperty("java.rmi.server.hostname", "192.168.1.175");
-
         int registryPort = 1099;
-        if (args.length > 0) registryPort = Integer.parseInt(args[0]);
-
-        // create registry
         Registry registry = LocateRegistry.createRegistry(registryPort);
 
-        // create server impl
-        ChatServerImpl server = new ChatServerImpl();
-
-        // export the remote object on a fixed port to avoid dynamic ports (optional)
-        int objectPort = 2001;
-        UnicastRemoteObject.exportObject(server, objectPort);
-
-        // bind to registry
+        // tạo và bind trực tiếp; không export lại
+        ChatServerImpl server = new ChatServerImpl(); // đã export bởi super()
         registry.rebind("ChatServer", server);
 
-        System.out.println("ChatServer bound on " + System.getProperty("java.rmi.server.hostname")
-                + ":" + registryPort + " (object port " + objectPort + ")");
+        System.out.println("ChatServer bound on " + System.getProperty("java.rmi.server.hostname") + ":" + registryPort);
     }
 
 }
